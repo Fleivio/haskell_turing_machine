@@ -8,7 +8,7 @@ instance Show a => Show (NList a) where
     show l = show (basic l) ++ show (content l) ++ show (basic l)
 
 beginNList :: a -> NList a
-beginNList b = NList [] b 0 0
+beginNList b = NList [] b (-1) 0
 
 beginNListFromList :: [a] -> a -> NList a
 beginNListFromList l b = NList l b (length l - 1) 0
