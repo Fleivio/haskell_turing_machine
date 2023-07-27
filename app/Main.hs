@@ -2,10 +2,7 @@ module Main (main) where
 
 import TuringMachine
 import Prefabs.BB4 (tBB4)
-
+import Prefabs.EvenPalindrome (tEvenPalindrome)
 
 main :: IO ()
-main = do
-        let v = tmRun tBB4
-        print v
-        print $ count v
+main = tmRun tBB4

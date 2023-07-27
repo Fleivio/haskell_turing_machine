@@ -4,7 +4,7 @@ import State.Transition
 import TuringMachine
 
 tp1 :: Tape Char
-tp1 = beginTapeFromList "aabbaa" 'B'
+tp1 = beginTapeFromList "baabbaab" 'B'
 
 q0 :: State
 q0 = State False "0"
@@ -45,4 +45,4 @@ tab' = [
         ]
 
 tEvenPalindrome :: TuringMachine Char
-tEvenPalindrome =  TM tp1 tab' q0 False 0
+tEvenPalindrome =  TM tp1 tab' q0 False 0 Nothing

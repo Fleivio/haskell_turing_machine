@@ -31,8 +31,11 @@ type TransitionTable a = [Transition a]
 getTransition :: (Eq a) => a -> State -> TransitionTable a -> [Transition a]
 getTransition readChar currentState transTable = [ tr | tr <- transTable, from tr == currentState, tread tr == readChar]
 
-nextAction :: (Eq a) => a -> State -> TransitionTable a -> Action a
+transitionToAction :: Transition a -> Action a
+transitionToAction t = Action ( to t ) ( twrite t ) (direction t)
+
+nextAction :: (Eq a) => a -> State -> TransitionTable a -> [Action a]
 nextAction readChar currentState transTable = case getTransition readChar currentState transTable of
-                                                [] -> Fail
-                                                (x:_) -> Action ( to x ) ( twrite x ) (direction x)
+                                                [] -> [Fail]
+                                                x -> map transitionToAction x
                                             

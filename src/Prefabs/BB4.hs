@@ -16,6 +16,8 @@ q3 :: State
 q3 = State False "3"
 qH :: State
 qH = State True "H"
+qEnd :: State
+qEnd = State False "E"
 
 tab' :: [Transition Int]
 tab' = [
@@ -26,8 +28,15 @@ tab' = [
         Transition q2 qH 0 R 1,
         Transition q2 q3 1 L 1,
         Transition q3 q3 0 R 1,
-        Transition q3 q0 1 R 0
+        Transition q3 q0 1 R 0,
+
+        -- force non deterministic behaviour
+        Transition q1 qEnd 1 L 0,
+        Transition q2 qEnd 1 L 1,
+        Transition q3 qEnd 0 R 1,
+        Transition qEnd qEnd 1 R 1,
+        Transition qEnd qEnd 0 R 0
         ]
 
 tBB4 :: TuringMachine Int
-tBB4 =  TM tp1 tab' q0 False 0
+tBB4 =  TM tp1 tab' q0 False 0 Nothing
