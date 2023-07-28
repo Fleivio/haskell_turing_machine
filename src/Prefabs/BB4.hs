@@ -39,4 +39,4 @@ tab' = [
         ]
 
 tBB4 :: TuringMachine Int
-tBB4 =  TM tp1 tab' q0 False 0 Nothing
+tBB4 =  beginTuring tp1 tab' q0

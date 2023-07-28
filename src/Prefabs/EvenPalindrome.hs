@@ -45,4 +45,4 @@ tab' = [
         ]
 
 tEvenPalindrome :: TuringMachine Char
-tEvenPalindrome =  TM tp1 tab' q0 False 0 Nothing
+tEvenPalindrome = beginTuring tp1 tab' q0 

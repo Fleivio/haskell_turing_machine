@@ -8,16 +8,19 @@ data TuringMachine a = TM {
         currentState :: State,
         halt :: Bool,
         count :: Int,
-        previousState :: Maybe (TuringMachine a)
+        accumulatedString :: String
     }
 
 beginTuring :: Tape a -> TransitionTable a -> State -> TuringMachine a
-beginTuring tape transTable state = TM tape transTable state False 0 Nothing
+beginTuring tape transTable state = TM tape transTable state False 0 ""
 
 instance (Show a) => Show (TuringMachine a) where
-    show tm = case previousState tm of
-        Just t -> show t ++ "\n" ++ show (tape tm) ++ " " ++ show (currentState tm)
-        Nothing -> show (tape tm) ++ " " ++ show (currentState tm)
+    show (TM _ _ st h c str) = str
+                               ++ "\nSteps: " ++ show c
+                               ++ "\nAccepted: " ++ show (h && isAccept st)
+
+showTapeState :: (Show a) => TuringMachine a -> String
+showTapeState tm = show (tape tm) ++ " " ++ show (currentState tm)
 
 tmPerformAction :: TuringMachine a -> Action a -> TuringMachine a
 tmPerformAction tm Fail = tm { halt = True }
@@ -27,9 +30,10 @@ tmPerformAction tm@(TM t _ _ _ c _) (Action nxt wChar dir)
                         currentState = nxt,
                         count = c + 1}
 
-tmStep :: (Eq a) => TuringMachine a -> [TuringMachine a]
+tmStep :: (Eq a, Show a) => TuringMachine a -> [TuringMachine a]
 tmStep tm@(TM _ _ _ True _ _) = pure tm
-tmStep tm = map ((\x -> x{previousState = Just x} ) . tmPerformAction tm) actions
+tmStep tm = map ((\x -> x{accumulatedString = accumulatedString x ++ "\n" ++ showTapeState tm} ) 
+                . tmPerformAction tm) actions
     where actions = nextAction (tapeRead (tape tm)) (currentState tm) (transitionTable tm)
 
 tmRun' :: (Eq a, Show a) => [TuringMachine a] -> Maybe (TuringMachine a)

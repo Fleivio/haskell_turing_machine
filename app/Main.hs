@@ -6,4 +6,4 @@ import Prefabs.EvenPalindrome (tEvenPalindrome)
 import Prefabs.BB5 (tBB5)
 
 main :: IO ()
-main = tmRun tBB4
+main = tmRun tEvenPalindrome
