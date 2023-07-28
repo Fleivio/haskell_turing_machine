@@ -22,7 +22,7 @@ tapeRead :: Tape a -> a
 tapeRead t = list t <!> pin t  
 
 tapeWrite :: Tape a -> a -> Tape a
-tapeWrite t v = t{ list = setVL (list t) (pin t) v }
+tapeWrite t v = t{ list = lSet (list t) (pin t) v }
 
 tapeShift :: Tape a -> Direction -> Tape a
 tapeShift t L = t { pin = pin t - 1 }

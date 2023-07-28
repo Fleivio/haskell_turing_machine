@@ -28,10 +28,16 @@ library
       Prefabs.BB4
       Prefabs.BB5
       Prefabs.EvenPalindrome
+      Prefabs.LangtonAnt
+      State.State
       State.Transition
+      State.Transition2D
       Tape.InfList
+      Tape.InfMatrix
       Tape.Tape
+      Tape.Tape2D
       TuringMachine
+      TuringMachine2D
   other-modules:
       Paths_turing
   hs-source-dirs:

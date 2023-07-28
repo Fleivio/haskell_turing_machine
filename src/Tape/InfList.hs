@@ -1,11 +1,11 @@
-module Tape.InfList( InfList(..), Index, beginInfList, beginInfListFromList, setVL, (<!>)) where 
+module Tape.InfList( InfList(..), Index, beginInfList, beginInfListFromList, lSet, lAcc, (<!>)) where 
 
 type Index = Int
 data InfList a = InfList { content :: [a], basic :: a, minIndex :: Index, maxIndex :: Index}
     deriving Eq
 
 instance Show a => Show (InfList a) where
-    show l = show (basic l) ++ show (content l) ++ show (basic l)
+    show l = show (basic l) ++ show (content l) ++ show (basic l) ++ "\n"
 
 beginInfList :: a -> InfList a
 beginInfList b = InfList [] b 0 (-1)
@@ -27,13 +27,16 @@ relativePosition l i
     | isOutOfBounds l i = basic l
     | otherwise = content l !! (i - minIndex l)
 
+lAcc :: InfList a -> Index -> a
+lAcc = (<!>)
+
 setListValue :: [a] -> Index -> a -> [a]
 setListValue [] _ _ = []
 setListValue (_:l) 0 v = v : l
 setListValue (x:l) i v = x : setListValue l (i-1) v
 
-setVL :: InfList a -> Index -> a -> InfList a
-setVL l i v = case relativePosition l i of
+lSet :: InfList a -> Index -> a -> InfList a
+lSet l i v = case relativePosition l i of
     LT -> l {content = newContentLeft, minIndex = i}
     GT -> l {content = newContentRight, maxIndex = i}
     EQ -> l {content = newContent}
@@ -55,7 +58,7 @@ instance Monoid a => Monoid (InfList a) where
     mempty = beginInfList mempty
 
 _lTest :: InfList Int
-_lTest = setVL (setVL (beginInfList 0) (-2) 9) 10 8
+_lTest = lSet (lSet (beginInfList 0) (-2) 9) 10 8
 
 _lTest2 :: InfList Integer
 _lTest2 = beginInfListFromList [1..] (-15)

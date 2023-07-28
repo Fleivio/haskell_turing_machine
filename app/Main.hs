@@ -1,9 +1,7 @@
 module Main (main) where
+import Prefabs.LangtonAnt
+import TuringMachine2D 
 
-import TuringMachine
-import Prefabs.BB4 (tBB4)
-import Prefabs.EvenPalindrome (tEvenPalindrome)
-import Prefabs.BB5 (tBB5)
 
 main :: IO ()
-main = tmRun tEvenPalindrome
+main = tmControlledRun2 12000 tAA
