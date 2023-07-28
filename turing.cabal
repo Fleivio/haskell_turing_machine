@@ -26,6 +26,7 @@ source-repository head
 library
   exposed-modules:
       Prefabs.BB4
+      Prefabs.BB5
       Prefabs.EvenPalindrome
       State.Transition
       Tape.InfList

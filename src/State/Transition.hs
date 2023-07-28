@@ -1,3 +1,4 @@
+{-# OPTIONS_GHC -Wno-partial-fields #-}
 module State.Transition(Transition(..), State(..), Action(..), TransitionTable, nextAction) where
 import Tape.Tape
 

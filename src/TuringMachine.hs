@@ -1,4 +1,4 @@
-module TuringMachine(TuringMachine(..), tmRun) where
+module TuringMachine(TuringMachine(..), tmRun, beginTuring) where
 import Tape.Tape
 import State.Transition
 
@@ -10,6 +10,9 @@ data TuringMachine a = TM {
         count :: Int,
         previousState :: Maybe (TuringMachine a)
     }
+
+beginTuring :: Tape a -> TransitionTable a -> State -> TuringMachine a
+beginTuring tape transTable state = TM tape transTable state False 0 Nothing
 
 instance (Show a) => Show (TuringMachine a) where
     show tm = case previousState tm of
@@ -42,5 +45,5 @@ tmRun' tms = if not (null successful)
 
 tmRun :: (Eq a, Show a) => TuringMachine a -> IO ()
 tmRun (TM _ _ _ True _ _) = print "Machine has already halted"
-tmRun tm = maybe (print "Machine has not halted") print result
+tmRun tm = maybe (print "Paniquei") print result
     where result = tmRun' [tm]

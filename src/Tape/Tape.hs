@@ -6,17 +6,17 @@ data Direction = R | L deriving (Eq, Show)
 
 data Tape a = Tape {
                     pin :: Index,
-                    list :: NList a
+                    list :: InfList a
                 } deriving Eq
 
 instance Show a => Show (Tape a) where
     show t = show (list t) ++ " " ++ show (pin t)
 
 beginTape :: a -> Tape a
-beginTape b = Tape 0 (beginNList b)
+beginTape b = Tape 0 (beginInfList b)
 
 beginTapeFromList :: [a] -> a -> Tape a
-beginTapeFromList l b = Tape 0 (beginNListFromList l b)
+beginTapeFromList l b = Tape 0 (beginInfListFromList l b)
 
 tapeRead :: Tape a -> a
 tapeRead t = list t <!> pin t  
