@@ -19,5 +19,7 @@ writeTmFile actions = do
 
 main :: IO ()
 main = do
+    writeTmFile "LLRR"
+    writeTmFile "LLRRRLRLRLLR"
     writeTmFile "LRRRRRLLR"
-    writeTmFile "RRLLLRLLLRRR"
+    writeTmFile "RLR"

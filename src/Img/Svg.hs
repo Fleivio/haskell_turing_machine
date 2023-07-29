@@ -4,10 +4,10 @@ module Img.Svg(svgGen, svgWriteFile) where
 import Img.Color
 
 defWidth :: Int
-defWidth = 5
+defWidth = 10
 
 genStyle :: RGB -> String
-genStyle (RGB r g b)= "fill:rgb(" ++ show r1 ++ "," ++ show g1 ++ "," ++ show b1 ++ ");stroke-width:1;stroke:rgb(0,0,0)"
+genStyle (RGB r g b)= "fill:rgb(" ++ show r1 ++ "," ++ show g1 ++ "," ++ show b1 ++ ");"
     where (r1, g1, b1) = (scale255 r,  scale255 g, scale255 b)
 
 svgRect :: RGB -> Int -> Int -> String
