@@ -29,6 +29,7 @@ library
       Prefabs.BB5
       Prefabs.EvenPalindrome
       Prefabs.LangtonAnt
+      Prefabs.LRAnt
       State.State
       State.Transition
       State.Transition2D

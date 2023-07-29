@@ -1,9 +1,8 @@
 module Main (main) where
 import Prefabs.LangtonAnt
-import TuringMachine2D 
-import TuringMachine
-import Prefabs.BB5 (tBB5)
-
+import TuringMachine2D
+import Prefabs.LRAnt
+import Tape.Tape2D
 
 main :: IO ()
-main = tmControlledRun 1200 tBB5
+main = tmControlledRun2 200000 (genAnt [ RLeft, RRight, RRight, RRight, RRight, RRight, RLeft, RLeft, RRight ])

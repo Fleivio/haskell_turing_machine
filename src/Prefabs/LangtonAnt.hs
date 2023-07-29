@@ -1,4 +1,4 @@
-module Prefabs.LangtonAnt(tAA) where
+module Prefabs.LangtonAnt(tAnt) where
 
 import TuringMachine2D
 import Tape.Tape2D
@@ -22,5 +22,5 @@ tb = [
         Transition2D q1 q1 Black RLeft White
     ]
 
-tAA :: TuringMachine2D BColor
-tAA = beginTuring2 tp1 tb q1
+tAnt :: TuringMachine2D BColor
+tAnt = beginTuring2 tp1 tb q1

@@ -5,7 +5,7 @@ data InfList a = InfList { content :: [a], basic :: a, minIndex :: Index, maxInd
     deriving Eq
 
 instance Show a => Show (InfList a) where
-    show l = show (basic l) ++ show (content l) ++ show (basic l) ++ "\n"
+    show l = show (basic l) ++ show (content l) ++ show (basic l)
 
 beginInfList :: a -> InfList a
 beginInfList b = InfList [] b 0 (-1)
