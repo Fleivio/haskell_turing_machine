@@ -1,8 +1,7 @@
 module Img.Ppm (ppmWriteFile) where
 
 import Img.Color
--- Image output: We can write a ppm (Portable Pixmap) file by converting a list of
--- colors (length is width * height) into a big string
+
 makePgm :: [[RGB]] -> String
 makePgm xs = "P3\n" ++ show width ++ " " ++ show height ++ "\n255\n" ++ stringify (concat xs)
                   where stringify [] = ""
