@@ -2,8 +2,6 @@ module TuringMachine2D(TuringMachine2D(..), tmRun2, beginTuring2, tmControlledRu
 import Tape.Tape2D
 import State.Transition2D
 
-import Img.Svg
-import Data.Maybe (isNothing)
 
 data TuringMachine2D a = TM2 {
         tape :: Tape2D a,

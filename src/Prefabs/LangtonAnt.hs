@@ -6,17 +6,17 @@ import State.Transition2D
 
 import Img.Color
 
-tp1 :: Tape2D DColor
-tp1 = beginTape2 White
+tp1 :: Tape2D RGB
+tp1 = beginTape2 white
 
 q1 :: State
 q1 = State False "up"
 
-tb :: TransitionTable2D DColor
+tb :: TransitionTable2D RGB
 tb = [
-        Transition2D q1 q1 White RRight Black,
-        Transition2D q1 q1 Black RLeft White
+        Transition2D q1 q1 white RRight black,
+        Transition2D q1 q1 black RLeft white
     ]
 
-tAnt :: TuringMachine2D DColor
+tAnt :: TuringMachine2D RGB
 tAnt = beginTuring2 tp1 tb q1
