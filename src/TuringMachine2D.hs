@@ -29,7 +29,7 @@ tmPerformAction tm@(TM2 t _ _ _ c) (Action2D nxt wChar dir)
                         currentState = nxt,
                         count = c + 1}
 
-tmStep :: (Eq a, Show a) => TuringMachine2D a -> [TuringMachine2D a]
+tmStep :: (Eq a) => TuringMachine2D a -> [TuringMachine2D a]
 tmStep tm@(TM2 _ _ _ True _) = pure tm
 tmStep tm = map (tmPerformAction tm) actions
     where actions = nextAction (tapeRead2 (tape tm)) (currentState tm) (transitionTable tm)
@@ -64,6 +64,6 @@ tmRun2 tm = maybe (print "Paniquei") print result
     where result = tmRun2' [tm]
 
 tmControlledRun2 :: (Eq a, Show a) => Int -> TuringMachine2D a -> IO ()
-tmControlledRun2 n (TM2 _ _ _ True _) = print "Machine has already halted"
+tmControlledRun2 _ (TM2 _ _ _ True _) = print "Machine has already halted"
 tmControlledRun2 n tm = maybe (print "Paniquei") print result
     where result = tmControlledRun2' n [tm]

@@ -1,4 +1,4 @@
-module TuringMachine(TuringMachine(..), tmRun, beginTuring) where
+module TuringMachine(TuringMachine(..), tmRun, beginTuring, tmControlledRun) where
 import Tape.Tape
 import State.Transition
 
@@ -37,17 +37,35 @@ tmStep tm = map ((\x -> x{accumulatedString = accumulatedString x ++ "\n" ++ sho
     where actions = nextAction (tapeRead (tape tm)) (currentState tm) (transitionTable tm)
 
 tmRun' :: (Eq a, Show a) => [TuringMachine a] -> Maybe (TuringMachine a)
-tmRun' [] = Nothing
-tmRun' tms = if not (null successful)
-             then Just . head $ successful
-             else tmRun' continue
-       where
-            onNext = concatMap tmStep tms
-            hadStopped = filter halt onNext
-            continue = filter (not . halt) onNext
-            successful = filter ( isAccept . currentState ) hadStopped
+tmRun' tms
+  | null tms = Nothing
+  | not (null successful) = Just . head $ successful
+  | otherwise = tmRun' continue
+  where
+      onNext = concatMap tmStep tms
+      hadStopped = filter halt onNext
+      continue = filter (not . halt) onNext
+      successful = filter ( isAccept . currentState ) hadStopped
+
+tmControlledRun' :: (Eq a, Show a) => Int -> [TuringMachine a] -> Maybe (TuringMachine a)
+tmControlledRun' n tms
+  | null tms = Nothing
+  | n == 0   = Just (head tms)
+  | n < 0    = Nothing
+  | not (null successful) = Just . head $ successful
+  | otherwise = tmControlledRun' (n - 1) continue
+  where
+      onNext = concatMap tmStep tms
+      hadStopped = filter halt onNext
+      continue = filter (not . halt) onNext
+      successful = filter ( isAccept . currentState ) hadStopped
 
 tmRun :: (Eq a, Show a) => TuringMachine a -> IO ()
 tmRun (TM _ _ _ True _ _) = print "Machine has already halted"
 tmRun tm = maybe (print "Paniquei") print result
     where result = tmRun' [tm]
+
+tmControlledRun :: (Eq a, Show a) => Int -> TuringMachine a -> IO ()
+tmControlledRun _ (TM _ _ _ True _ _) = print "Machine has already halted"
+tmControlledRun n tm = maybe (print "Paniquei") print result
+    where result = tmControlledRun' n [tm]
