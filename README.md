@@ -1,4 +1,10 @@
-# turing
+# 2D (and 1D) turing machines
 
+
+## Langton's Ants:
+
+#### RRLLLRLLLRRR:
 ![alt text](RRLLLRLLLRRR.svg)
+
+#### LRRRRRLLR:
 ![alt text](LRRRRRLLR.svg)
