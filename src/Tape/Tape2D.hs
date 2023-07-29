@@ -1,4 +1,4 @@
-module Tape.Tape2D(Tape2D(..), Rotation(..), beginTape2, beginTapeFromMat2, tapeRead2, tapeWrite2, tapeRotate2, beginTapeFromMatAndList2) where
+module Tape.Tape2D(Tape2D(..), Rotation(..), getContent, beginTape2, beginTapeFromMat2, tapeRead2, tapeWrite2, tapeRotate2, beginTapeFromMatAndList2) where
 
 import Tape.InfMatrix
 
@@ -23,6 +23,10 @@ data Tape2D a = Tape2D {
 
 instance Show a => Show (Tape2D a) where
     show (Tape2D p _ m) = showInfMatrix m ++ " " ++ show p
+
+getContent :: Tape2D a -> [[a]]
+getContent (Tape2D _ _ m) = map content (content mat)
+    where mat = adjustMat m
 
 beginTape2 :: a -> Tape2D a
 beginTape2 b = Tape2D (0,0) U (beginInfMat b)

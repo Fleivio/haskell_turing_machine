@@ -25,6 +25,9 @@ source-repository head
 
 library
   exposed-modules:
+      Img.Color
+      Img.Ppm
+      Img.Svg
       Prefabs.BB4
       Prefabs.BB5
       Prefabs.EvenPalindrome

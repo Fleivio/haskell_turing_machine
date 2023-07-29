@@ -2,6 +2,9 @@ module TuringMachine2D(TuringMachine2D(..), tmRun2, beginTuring2, tmControlledRu
 import Tape.Tape2D
 import State.Transition2D
 
+import Img.Svg
+import Data.Maybe (isNothing)
+
 data TuringMachine2D a = TM2 {
         tape :: Tape2D a,
         transitionTable :: TransitionTable2D a,
@@ -58,12 +61,12 @@ tmControlledRun2' n tms
       continue = filter (not . halt) onNext
       successful = filter (isAccept . currentState) hadStopped
 
-tmRun2 :: (Eq a, Show a) => TuringMachine2D a -> IO ()
-tmRun2 (TM2 _ _ _ True _) = print "Machine has already halted"
-tmRun2 tm = maybe (print "Paniquei") print result
+tmRun2 :: (Eq a, Show a) => TuringMachine2D a -> Maybe (TuringMachine2D a)
+tmRun2 tm@(TM2 _ _ _ True _) = Just tm
+tmRun2 tm = result
     where result = tmRun2' [tm]
 
-tmControlledRun2 :: (Eq a, Show a) => Int -> TuringMachine2D a -> IO ()
-tmControlledRun2 _ (TM2 _ _ _ True _) = print "Machine has already halted"
-tmControlledRun2 n tm = maybe (print "Paniquei") print result
+tmControlledRun2 :: (Eq a, Show a) => Int -> TuringMachine2D a -> Maybe (TuringMachine2D a)
+tmControlledRun2 _ tm@(TM2 _ _ _ True _) = Just tm 
+tmControlledRun2 n tm = result
     where result = tmControlledRun2' n [tm]

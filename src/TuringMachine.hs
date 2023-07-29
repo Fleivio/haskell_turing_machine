@@ -60,12 +60,12 @@ tmControlledRun' n tms
       continue = filter (not . halt) onNext
       successful = filter ( isAccept . currentState ) hadStopped
 
-tmRun :: (Eq a, Show a) => TuringMachine a -> IO ()
-tmRun (TM _ _ _ True _ _) = print "Machine has already halted"
-tmRun tm = maybe (print "Paniquei") print result
+tmRun :: (Eq a, Show a) => TuringMachine a -> Maybe (TuringMachine a)
+tmRun tm@(TM _ _ _ True _ _) = Just tm 
+tmRun tm = result
     where result = tmRun' [tm]
 
-tmControlledRun :: (Eq a, Show a) => Int -> TuringMachine a -> IO ()
-tmControlledRun _ (TM _ _ _ True _ _) = print "Machine has already halted"
-tmControlledRun n tm = maybe (print "Paniquei") print result
+tmControlledRun :: (Eq a, Show a) => Int -> TuringMachine a -> Maybe (TuringMachine a)
+tmControlledRun _ tm@(TM _ _ _ True _ _) = Just tm
+tmControlledRun n tm = result
     where result = tmControlledRun' n [tm]

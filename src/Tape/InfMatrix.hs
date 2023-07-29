@@ -1,4 +1,4 @@
-module Tape.InfMatrix(InfMatrix, Index2D, beginInfMat, mAcc, mSet, beginInfMatFromMat, beginInfMatFromMatAndList, showInfMatrix) where
+module Tape.InfMatrix(InfMatrix, InfList(..), Index2D, beginInfMat, mAcc, adjustMat, mSet, beginInfMatFromMat, beginInfMatFromMatAndList, showInfMatrix) where
 
 import Tape.InfList
 
@@ -6,11 +6,19 @@ type Index2D = (Index, Index)
 type InfMatrix a = InfList (InfList a)
 
 showInfMatrix :: (Show a) => InfMatrix a -> String
-showInfMatrix m = concatMap adjustShow (content m)
-    where 
+showInfMatrix m = unlines $ map show (content (adjustMat m))
+
+adjustMat :: InfMatrix a -> InfMatrix a
+adjustMat m = m { content = map adjustRow (content m) }
+    where   
         smallestIndex = minimum $ map minIndex (content m)
-        adjustShow :: (Show a) => InfList a -> String
-        adjustShow row = show ( replicate (minIndex row - smallestIndex) (basic row) ++ content row) ++ "\n"
+        largestIndex = maximum $ map maxIndex (content m)
+        adjustRow :: InfList a -> InfList a
+        adjustRow row =
+            beginInfListFromList
+            (replicate (minIndex row - smallestIndex) (basic row)
+             ++ content row ++
+             replicate (largestIndex - maxIndex row) (basic row)) (basic row)
 
 beginInfMat :: a -> InfMatrix a
 beginInfMat a = beginInfList (beginInfList a)
