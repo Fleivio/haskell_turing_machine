@@ -2,7 +2,6 @@ module Prefabs.LRAnt(genAnt) where
 import TuringMachine2D 
 import State.State
 import Tape.Tape2D
-import State.Transition2D
 import Debug.Trace
 import Img.Color
 
@@ -24,11 +23,11 @@ stringToRotation (x:xs) =
                 | c == 'B' || c == 'b' = RBackward
                 | otherwise = RNot
 
-statesToTransitions :: Int -> [RGB] -> [Rotation] -> TransitionTable2D RGB
+statesToTransitions :: Int -> [RGB] -> [Rotation] -> TransitionTable RGB Rotation
 statesToTransitions _ _ [] = []
 statesToTransitions _ [] _ = []
 statesToTransitions i cs (r:rs) = transition : statesToTransitions (i+1) cs rs
-        where transition =  Transition2D q0 q0 
+        where transition =  mkTr q0 q0 
                             (cs !! i) 
                             r
                             (cs !! ((i + 1) `mod` length cs)) 

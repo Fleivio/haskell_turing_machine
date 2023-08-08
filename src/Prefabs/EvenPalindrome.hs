@@ -1,6 +1,6 @@
 module Prefabs.EvenPalindrome(tEvenPalindrome) where
 import Tape.Tape
-import State.Transition
+import State.State
 import TuringMachine
 
 tp1 :: Tape Char
@@ -23,25 +23,25 @@ q6 = State False "6"
 q7 :: State
 q7 = State True "7"
 
-tab' :: [Transition Char]
+tab' :: [Transition Char Direction]
 tab' = [
-        Transition q0 q7 'B' R 'B',
-        Transition q0 q1 'a' R 'B',
-        Transition q0 q4 'b' R 'B',
-        Transition q1 q1 'a' R 'a',
-        Transition q1 q1 'b' R 'b',
-        Transition q1 q2 'B' L 'B',
-        Transition q2 q3 'a' L 'B',
-        Transition q3 q3 'a' L 'a',
-        Transition q3 q3 'b' L 'b',
-        Transition q3 q0 'B' R 'B',
-        Transition q4 q4 'a' R 'a',
-        Transition q4 q4 'b' R 'b',
-        Transition q4 q5 'B' L 'B',
-        Transition q5 q6 'b' L 'B',
-        Transition q6 q6 'b' L 'b',
-        Transition q6 q6 'a' L 'a',
-        Transition q6 q0 'B' R 'B'
+        mkTr q0 q7 'B' R 'B',
+        mkTr q0 q1 'a' R 'B',
+        mkTr q0 q4 'b' R 'B',
+        mkTr q1 q1 'a' R 'a',
+        mkTr q1 q1 'b' R 'b',
+        mkTr q1 q2 'B' L 'B',
+        mkTr q2 q3 'a' L 'B',
+        mkTr q3 q3 'a' L 'a',
+        mkTr q3 q3 'b' L 'b',
+        mkTr q3 q0 'B' R 'B',
+        mkTr q4 q4 'a' R 'a',
+        mkTr q4 q4 'b' R 'b',
+        mkTr q4 q5 'B' L 'B',
+        mkTr q5 q6 'b' L 'B',
+        mkTr q6 q6 'b' L 'b',
+        mkTr q6 q6 'a' L 'a',
+        mkTr q6 q0 'B' R 'B'
         ]
 
 tEvenPalindrome :: TuringMachine Char

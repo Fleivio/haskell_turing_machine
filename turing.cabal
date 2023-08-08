@@ -34,8 +34,6 @@ library
       Prefabs.LangtonAnt
       Prefabs.LRAnt
       State.State
-      State.Transition
-      State.Transition2D
       Tape.InfList
       Tape.InfMatrix
       Tape.Tape

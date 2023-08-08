@@ -1,6 +1,6 @@
 module Prefabs.BB4(tBB4) where
 import Tape.Tape
-import State.Transition
+import State.State
 import TuringMachine
 
 tp1 :: Tape Int
@@ -19,23 +19,23 @@ qH = State True "H"
 qEnd :: State
 qEnd = State False "E"
 
-tab' :: [Transition Int]
+tab' :: [Transition Int Direction]
 tab' = [
-        Transition q0 q1 0 R 1,
-        Transition q0 q1 1 L 1,
-        Transition q1 q0 0 L 1,
-        Transition q1 q2 1 L 0,
-        Transition q2 qH 0 R 1,
-        Transition q2 q3 1 L 1,
-        Transition q3 q3 0 R 1,
-        Transition q3 q0 1 R 0,
+        mkTr q0 q1 0 R 1,
+        mkTr q0 q1 1 L 1,
+        mkTr q1 q0 0 L 1,
+        mkTr q1 q2 1 L 0,
+        mkTr q2 qH 0 R 1,
+        mkTr q2 q3 1 L 1,
+        mkTr q3 q3 0 R 1,
+        mkTr q3 q0 1 R 0,
 
         -- force non deterministic behaviour
-        Transition q1 qEnd 1 L 0,
-        Transition q2 qEnd 1 L 1,
-        Transition q3 qEnd 0 R 1,
-        Transition qEnd qEnd 1 R 1,
-        Transition qEnd qEnd 0 R 0
+        mkTr q1 qEnd 1 L 0,
+        mkTr q2 qEnd 1 L 1,
+        mkTr q3 qEnd 0 R 1,
+        mkTr qEnd qEnd 1 R 1,
+        mkTr qEnd qEnd 0 R 0
         ]
 
 tBB4 :: TuringMachine Int

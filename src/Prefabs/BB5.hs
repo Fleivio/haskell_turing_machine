@@ -1,6 +1,6 @@
 module Prefabs.BB5(tBB5) where
 import Tape.Tape
-import State.Transition
+import State.State
 import TuringMachine
 
 tp1 :: Tape Int
@@ -19,22 +19,22 @@ qe = State False "4"
 qH :: State
 qH = State True "H"
 
-tab' :: [Transition Int]
+tab' :: [Transition Int Direction]
 tab' = [
-        Transition qa qb 0 R 1,
-        Transition qa qc 1 L 1,
+        mkTr qa qb 0 R 1,
+        mkTr qa qc 1 L 1,
 
-        Transition qb qc 0 R 1,
-        Transition qb qb 1 R 1,
+        mkTr qb qc 0 R 1,
+        mkTr qb qb 1 R 1,
 
-        Transition qc qd 0 R 1,
-        Transition qc qe 1 L 0,
+        mkTr qc qd 0 R 1,
+        mkTr qc qe 1 L 0,
 
-        Transition qd qa 0 L 1,
-        Transition qd qd 1 L 1,
+        mkTr qd qa 0 L 1,
+        mkTr qd qd 1 L 1,
         
-        Transition qe qH 0 R 1,
-        Transition qe qa 1 L 0
+        mkTr qe qH 0 R 1,
+        mkTr qe qa 1 L 0
         ]
 
 tBB5 :: TuringMachine Int

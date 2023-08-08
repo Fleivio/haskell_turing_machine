@@ -1,17 +1,17 @@
 module TuringMachine2D(TuringMachine2D(..), tmRun2, beginTuring2, tmControlledRun2) where
 import Tape.Tape2D
-import State.Transition2D
+import State.State
 
 
 data TuringMachine2D a = TM2 {
         tape :: Tape2D a,
-        transitionTable :: TransitionTable2D a,
+        transitionTable :: TransitionTable a Rotation,
         currentState :: State,
         halt :: Bool,
         count :: Int
     }
 
-beginTuring2 :: Tape2D a -> TransitionTable2D a -> State -> TuringMachine2D a
+beginTuring2 :: Tape2D a -> TransitionTable a Rotation -> State -> TuringMachine2D a
 beginTuring2 tape transTable state = TM2 tape transTable state False 0
 
 instance (Show a) => Show (TuringMachine2D a) where
@@ -22,9 +22,9 @@ instance (Show a) => Show (TuringMachine2D a) where
 showTapeState :: (Show a) => TuringMachine2D a -> String
 showTapeState tm = show (tape tm) ++ " " ++ show (currentState tm)
 
-tmPerformAction :: TuringMachine2D a -> Action2D a -> TuringMachine2D a
+tmPerformAction :: TuringMachine2D a -> Action a Rotation -> TuringMachine2D a
 tmPerformAction tm Fail = tm { halt = True }
-tmPerformAction tm@(TM2 t _ _ _ c) (Action2D nxt wChar dir)
+tmPerformAction tm@(TM2 t _ _ _ c) (Action nxt wChar dir)
                     = tm {
                         tape = tapeRotate2 (tapeWrite2 t wChar) dir,
                         currentState = nxt,

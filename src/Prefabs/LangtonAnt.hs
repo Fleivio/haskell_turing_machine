@@ -2,7 +2,7 @@ module Prefabs.LangtonAnt(tAnt) where
 
 import TuringMachine2D
 import Tape.Tape2D
-import State.Transition2D
+import State.State
 
 import Img.Color
 
@@ -12,10 +12,10 @@ tp1 = beginTape2 white
 q1 :: State
 q1 = State False "up"
 
-tb :: TransitionTable2D RGB
+tb :: TransitionTable RGB Rotation
 tb = [
-        Transition2D q1 q1 white RRight black,
-        Transition2D q1 q1 black RLeft white
+        mkTr q1 q1 white RRight black,
+        mkTr q1 q1 black RLeft white
     ]
 
 tAnt :: TuringMachine2D RGB

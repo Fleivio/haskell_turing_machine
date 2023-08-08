@@ -1,17 +1,17 @@
 module TuringMachine(TuringMachine(..), tmRun, beginTuring, tmControlledRun) where
 import Tape.Tape
-import State.Transition
+import State.State
 
 data TuringMachine a = TM {
         tape :: Tape a,
-        transitionTable :: TransitionTable a,
+        transitionTable :: TransitionTable a Direction,
         currentState :: State,
         halt :: Bool,
         count :: Int,
         accumulatedString :: String
     }
 
-beginTuring :: Tape a -> TransitionTable a -> State -> TuringMachine a
+beginTuring :: Tape a -> TransitionTable a Direction -> State -> TuringMachine a
 beginTuring tape transTable state = TM tape transTable state False 0 ""
 
 instance (Show a) => Show (TuringMachine a) where
@@ -22,7 +22,7 @@ instance (Show a) => Show (TuringMachine a) where
 showTapeState :: (Show a) => TuringMachine a -> String
 showTapeState tm = show (tape tm) ++ " " ++ show (currentState tm)
 
-tmPerformAction :: TuringMachine a -> Action a -> TuringMachine a
+tmPerformAction :: TuringMachine a -> Action a Direction -> TuringMachine a
 tmPerformAction tm Fail = tm { halt = True }
 tmPerformAction tm@(TM t _ _ _ c _) (Action nxt wChar dir)
                     = tm {
