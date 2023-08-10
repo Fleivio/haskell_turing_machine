@@ -1,4 +1,4 @@
-module Tape.InfMatrix(InfMatrix, InfList(..), Index2D, beginInfMat, mAcc, adjustMat, mSet, beginInfMatFromMat, beginInfMatFromMatAndList, showInfMatrix) where
+module Tape.InfMatrix(Index2D, InfMatrix, InfList(..), mkInfMat, mkInfMatFromMat, adjustMat, content, mkInfMatFromMatAndList, mAcc, mSet, showInfMatrix) where
 
 import Tape.InfList
 
@@ -9,33 +9,34 @@ showInfMatrix :: (Show a) => InfMatrix a -> String
 showInfMatrix m = unlines $ map show (content (adjustMat m))
 
 adjustMat :: InfMatrix a -> InfMatrix a
-adjustMat m = m { content = map adjustRow (content m) }
-    where   
-        smallestIndex = minimum $ map minIndex (content m)
-        largestIndex = maximum $ map maxIndex (content m)
+adjustMat m = m { positive = map adjustRow (positive m),
+                  negative = map adjustRow (negative m) }
+    where 
+        smallestIdx = minimum $ map smallestIndex (content m)
+        largestIdx = maximum $ map largestIndex (content m)
+
         adjustRow :: InfList a -> InfList a
-        adjustRow row =
-            beginInfListFromList
-            (replicate (minIndex row - smallestIndex) (basic row)
-             ++ content row ++
-             replicate (largestIndex - maxIndex row) (basic row)) (basic row)
+        adjustRow row = mkInfListFromList
+                        (replicate (smallestIndex row - smallestIdx) (base row)
+                         ++ content row ++
+                         replicate (largestIdx - largestIndex row) (base row)) (base row)
 
-beginInfMat :: a -> InfMatrix a
-beginInfMat a = beginInfList (beginInfList a)
 
-beginInfMatFromMat :: [[a]] -> a -> InfMatrix a
-beginInfMatFromMat ls b = beginInfListFromList subLists basicList
-    where subLists = [beginInfListFromList l b | l <- ls]
-          basicList = beginInfList b
+mkInfMat :: a -> InfMatrix a
+mkInfMat a = mkInfList (mkInfList a)
 
-beginInfMatFromMatAndList :: [[a]] -> a -> [a] -> InfMatrix a
-beginInfMatFromMatAndList ls b bs = beginInfListFromList subLists basicList
-    where subLists = [beginInfListFromList l b | l <- ls]
-          basicList = beginInfListFromList bs b
+mkInfMatFromMat :: [[a]] -> a -> InfMatrix a
+mkInfMatFromMat ls b = mkInfListFromList subLists basicList
+    where subLists = [mkInfListFromList l b | l <- ls]
+          basicList = mkInfList b
+
+mkInfMatFromMatAndList :: [[a]] -> a -> [a] -> InfMatrix a
+mkInfMatFromMatAndList ls b bs = mkInfListFromList subLists basicList
+    where subLists = [mkInfListFromList l b | l <- ls]
+          basicList = mkInfListFromList bs b
 
 mAcc :: InfMatrix a -> Index2D -> a
 mAcc m (x,y) = m <!> y <!> x
 
 mSet :: InfMatrix a -> Index2D -> a -> InfMatrix a
 mSet m (x, y) v = lSet m y (lSet (m <!> y) x v)
-

@@ -9,7 +9,8 @@ data Action a b = Action {
                     nextState :: State,
                     charToWrite :: a,
                     dirToMove :: b
-                } | Fail
+                }
+                | Fail
                 deriving Eq
 
 data Transition a b = Transition {

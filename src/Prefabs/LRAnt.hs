@@ -4,12 +4,16 @@ import State.State
 import Tape.Tape2D
 import Debug.Trace
 import Img.Color
+import Img.Palette
 
 q0 :: State
 q0 = State False "0"
 
+palette :: [RGB]
+palette = dracula
+
 rotToColors :: [Rotation] -> [RGB]
-rotToColors r = take (length r) dict
+rotToColors r = take (length r) palette
 
 stringToRotation :: String -> [Rotation]
 stringToRotation [] = []
@@ -33,5 +37,7 @@ statesToTransitions i cs (r:rs) = transition : statesToTransitions (i+1) cs rs
                             (cs !! ((i + 1) `mod` length cs)) 
 
 genAnt :: String -> TuringMachine2D RGB
-genAnt r = beginTuring2 (beginTape2 (dict !! 0)) (statesToTransitions 0 (rotToColors (trace (show rot) rot)) rot) q0
+genAnt r = beginTuring2 tp trs q0
         where rot = stringToRotation r
+              tp = beginTape2 (head palette)
+              trs = statesToTransitions 0 (rotToColors (trace (show rot) rot)) rot

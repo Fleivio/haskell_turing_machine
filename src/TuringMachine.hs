@@ -7,33 +7,27 @@ data TuringMachine a = TM {
         transitionTable :: TransitionTable a Direction,
         currentState :: State,
         halt :: Bool,
-        count :: Int,
-        accumulatedString :: String
+        count :: Int
     }
 
 beginTuring :: Tape a -> TransitionTable a Direction -> State -> TuringMachine a
-beginTuring tape transTable state = TM tape transTable state False 0 ""
+beginTuring tape transTable state = TM tape transTable state False 0
 
 instance (Show a) => Show (TuringMachine a) where
-    show (TM _ _ st h c str) = str
-                               ++ "\nSteps: " ++ show c
+    show (TM _ _ st h c) = "\nSteps: " ++ show c
                                ++ "\nAccepted: " ++ show (h && isAccept st)
-
-showTapeState :: (Show a) => TuringMachine a -> String
-showTapeState tm = show (tape tm) ++ " " ++ show (currentState tm)
 
 tmPerformAction :: TuringMachine a -> Action a Direction -> TuringMachine a
 tmPerformAction tm Fail = tm { halt = True }
-tmPerformAction tm@(TM t _ _ _ c _) (Action nxt wChar dir)
+tmPerformAction tm@(TM t _ _ _ c) (Action nxt wChar dir)
                     = tm {
                         tape = tapeShift (tapeWrite t wChar) dir,
                         currentState = nxt,
                         count = c + 1}
 
-tmStep :: (Eq a, Show a) => TuringMachine a -> [TuringMachine a]
-tmStep tm@(TM _ _ _ True _ _) = pure tm
-tmStep tm = map ((\x -> x{accumulatedString = accumulatedString x ++ "\n" ++ showTapeState tm} ) 
-                . tmPerformAction tm) actions
+tmStep :: (Eq a) => TuringMachine a -> [TuringMachine a]
+tmStep tm@(TM _ _ _ True _) = pure tm
+tmStep tm = map (tmPerformAction tm) actions
     where actions = nextAction (tapeRead (tape tm)) (currentState tm) (transitionTable tm)
 
 tmRun' :: (Eq a, Show a) => [TuringMachine a] -> Maybe (TuringMachine a)
@@ -61,11 +55,11 @@ tmControlledRun' n tms
       successful = filter ( isAccept . currentState ) hadStopped
 
 tmRun :: (Eq a, Show a) => TuringMachine a -> Maybe (TuringMachine a)
-tmRun tm@(TM _ _ _ True _ _) = Just tm 
+tmRun tm@(TM _ _ _ True _) = Just tm 
 tmRun tm = result
     where result = tmRun' [tm]
 
 tmControlledRun :: (Eq a, Show a) => Int -> TuringMachine a -> Maybe (TuringMachine a)
-tmControlledRun _ tm@(TM _ _ _ True _ _) = Just tm
+tmControlledRun _ tm@(TM _ _ _ True _) = Just tm
 tmControlledRun n tm = result
     where result = tmControlledRun' n [tm]

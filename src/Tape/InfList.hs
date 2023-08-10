@@ -1,31 +1,39 @@
-module Tape.InfList( InfList(..), Index, beginInfList, beginInfListFromList, lSet, lAcc, (<!>)) where 
+module Tape.InfList(InfList(..), Index, mkInfList, mkInfListFromList, (<!>), lAcc, lSet, smallestIndex, largestIndex, content ) where 
 
 type Index = Int
-data InfList a = InfList { content :: [a], basic :: a, minIndex :: Index, maxIndex :: Index}
-    deriving Eq
 
-instance Show a => Show (InfList a) where
-    show l = show (basic l) ++ show (content l) ++ show (basic l)
+data InfList a = InfList {
+    negative :: [a],
+    positive :: [a],
+    base :: a
+    } deriving Eq
 
-beginInfList :: a -> InfList a
-beginInfList b = InfList [] b 0 (-1)
+instance (Show a) => Show (InfList a) where
+    show l = show (base l) ++ show (reverse (negative l)) ++ show (positive l) ++ show (base l)
 
-beginInfListFromList :: [a] -> a -> InfList a
-beginInfListFromList l b = InfList l b 0 (length l - 1)
+instance Functor InfList where
+    fmap f l = l {negative = f <$> negative l, positive = f <$> positive l, base = f (base l)} 
 
-isOutOfBounds :: InfList a -> Index -> Bool
-isOutOfBounds l i = i < minIndex l || i > maxIndex l
+mkInfList :: a -> InfList a
+mkInfList = InfList [] []
+
+mkInfListFromList :: [a] -> a -> InfList a
+mkInfListFromList = InfList []
 
 relativePosition :: InfList a -> Index -> Ordering
 relativePosition l i
-    | i < minIndex l = LT
-    | i > maxIndex l = GT
+    | i >= 0 && i >= length (positive l) = GT 
+    | i < 0 && (-(i+1)) >= length (negative l) = LT
     | otherwise = EQ
+
+isOutOfBounds :: InfList a -> Index -> Bool
+isOutOfBounds l i = relativePosition l i /= EQ
 
 (<!>) :: InfList a -> Index -> a
 (<!>) l i
-    | isOutOfBounds l i = basic l
-    | otherwise = content l !! (i - minIndex l)
+    | isOutOfBounds l i = base l
+    | i < 0 = negative l !! (-(i + 1))
+    | otherwise = positive l !! i
 
 lAcc :: InfList a -> Index -> a
 lAcc = (<!>)
@@ -36,29 +44,22 @@ setListValue (_:l) 0 v = v : l
 setListValue (x:l) i v = x : setListValue l (i-1) v
 
 lSet :: InfList a -> Index -> a -> InfList a
-lSet l i v = case relativePosition l i of
-    LT -> l {content = newContentLeft, minIndex = i}
-    GT -> l {content = newContentRight, maxIndex = i}
-    EQ -> l {content = newContent}
-    where newContent = setListValue (content l) (i - minIndex l) v
-          newContentLeft = v : replicate (minIndex l - i - 1) (basic l) ++ content l
-          newContentRight = content l ++ replicate (i - maxIndex l - 1) (basic l) ++ [v]
+lSet l i v
+    | relativePosition l i == LT = l {negative = newContentLeft}
+    | relativePosition l i == GT = l {positive = newContentRight}
+    | otherwise = if i < 0 then l {negative = newContentL1} else l {positive = newContentL2}
+    where 
+        newContentLeft = negative l ++ replicate (index - length (negative l)) (base l) ++ [v]
+        newContentRight = positive l ++ replicate (index - length (positive l)) (base l) ++ [v]
+        newContentL1 = setListValue (negative l) index v 
+        newContentL2 = setListValue (positive l) index v
+        index = if i < 0 then -(i + 1) else i
 
-instance Functor InfList where
-    fmap f n@(InfList l b _ _) = n { content = f <$> l, basic = f b}
+smallestIndex :: InfList a -> Index
+smallestIndex l = -(length (negative l) + 1)
 
-instance Applicative InfList where
-    pure = beginInfList
-    (InfList l1 b1 _ _) <*> n@(InfList l2 b2 _ _) = n { content = l1 <*> l2, basic = b1 b2 }
+largestIndex :: InfList a -> Index
+largestIndex l = length (positive l)
 
-instance Semigroup a => Semigroup (InfList a) where
-    (InfList l1 b1 _ _) <> (InfList l2 b2 _ _) = InfList (zipWith (<>) l1 l2) (b1 <> b2) 0 (min (length l1) (length l2) - 1)
-
-instance Monoid a => Monoid (InfList a) where
-    mempty = beginInfList mempty
-
-_lTest :: InfList Int
-_lTest = lSet (lSet (beginInfList 0) (-2) 9) 10 8
-
-_lTest2 :: InfList Integer
-_lTest2 = beginInfListFromList [1..] (-15)
+content :: InfList a -> [a]
+content l = reverse (negative l) ++ positive l
