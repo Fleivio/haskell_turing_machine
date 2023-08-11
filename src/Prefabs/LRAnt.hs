@@ -1,5 +1,5 @@
 module Prefabs.LRAnt(genAnt) where
-import TuringMachine2D 
+import Tm.TuringMachine2D 
 import State.State
 import Tape.Tape2D
 import Debug.Trace

@@ -1,24 +1,23 @@
 module Main (main) where
 
-import TuringMachine2D
+import Graphics.Gloss
+import Graphic
+import Tm.TuringMachine2D
 import Prefabs.LRAnt
-import Tape.Tape2D
-import Img.Svg
-import Img.Ppm
+import qualified Img.Color as C
+import Display (window)
 
-writeTmFile :: String -> IO()
-writeTmFile actions = do
-    let m = tmControlledRun2 200000 (genAnt actions)
-        colorTable = m >>= \x -> Just $ getContent (tape x)
-    maybe (print "Its Joever") (svgWriteFile ("./images/"++actions++".svg")) colorTable
-    maybe (print "Its Joever") (ppmWriteFile ("./images/"++actions++".ppm")) colorTable
+background :: Color
+background = makeColor 0 0 0 255
+
+initial :: TuringMachine2D C.RGB
+initial = tmStep (genAnt "RLNR2L")
 
 main :: IO ()
-main = do
-    writeTmFile "LLRL"
-    writeTmFile "RRLLLRLLLRRR"
-    writeTmFile "LRRRRRLLR"
-    writeTmFile "LLRR"
-    writeTmFile "RLR"
-    writeTmFile "LLLRL"
-    writeTmFile "RRRLL"
+main = play window -- tela
+            background -- background padrão
+            5000 -- fps
+            initial
+            tmToPic   -- print
+            (const id)  -- input
+            (const tmStep)  -- step

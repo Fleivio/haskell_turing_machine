@@ -1,4 +1,4 @@
-module TuringMachine2D(TuringMachine2D(..), tmRun2, beginTuring2, tmControlledRun2) where
+module Tm.TuringMachine2D(TuringMachine2D(..), tmRun2, tmStep, beginTuring2, tmControlledRun2) where
 import Tape.Tape2D
 import State.State
 
@@ -30,9 +30,9 @@ tmPerformAction tm@(TM2 t _ _ _ c) (Action nxt wChar dir)
                         currentState = nxt,
                         count = c + 1}
 
-tmStep :: (Eq a) => TuringMachine2D a -> [TuringMachine2D a]
-tmStep tm@(TM2 _ _ _ True _) = pure tm
-tmStep tm = map (tmPerformAction tm) actions
+tmStep' :: (Eq a) => TuringMachine2D a -> [TuringMachine2D a]
+tmStep' tm@(TM2 _ _ _ True _) = pure tm
+tmStep' tm = map (tmPerformAction tm) actions
     where actions = nextAction (tapeRead2 (tape tm)) (currentState tm) (transitionTable tm)
 
 tmRun2' :: (Eq a, Show a) => [TuringMachine2D a] -> Maybe (TuringMachine2D a)
@@ -41,7 +41,7 @@ tmRun2' tms
   | not (null successful) = Just . head $ successful
   | otherwise = tmRun2' continue
   where
-      onNext = concatMap tmStep tms
+      onNext = concatMap tmStep' tms
       hadStopped = filter halt onNext
       continue = filter (not . halt) onNext
       successful = filter (isAccept . currentState) hadStopped
@@ -54,10 +54,14 @@ tmControlledRun2' n tms
   | not (null successful) = Just . head $ successful
   | otherwise = tmControlledRun2' (n - 1) continue
   where
-      onNext = concatMap tmStep tms
+      onNext = concatMap tmStep' tms
       hadStopped = filter halt onNext
       continue = filter (not . halt) onNext
       successful = filter (isAccept . currentState) hadStopped
+
+tmStep :: (Eq a) => TuringMachine2D a -> TuringMachine2D a
+tmStep tm = let next = tmStep' tm in
+    if null next then tm else head next
 
 tmRun2 :: (Eq a, Show a) => TuringMachine2D a -> Maybe (TuringMachine2D a)
 tmRun2 tm@(TM2 _ _ _ True _) = Just tm
@@ -68,3 +72,4 @@ tmControlledRun2 :: (Eq a, Show a) => Int -> TuringMachine2D a -> Maybe (TuringM
 tmControlledRun2 _ tm@(TM2 _ _ _ True _) = Just tm 
 tmControlledRun2 n tm = result
     where result = tmControlledRun2' n [tm]
+
