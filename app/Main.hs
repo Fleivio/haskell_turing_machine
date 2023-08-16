@@ -11,12 +11,12 @@ background :: Color
 background = makeColor 0 0 0 255
 
 initial :: TuringMachine2D C.RGB
-initial = tmStep (genAnt "RLNR2L")
+initial = tmStep (genAnt "RLLR")
 
 main :: IO ()
 main = play window -- tela
             background -- background padrão
-            5000 -- fps
+            30000 -- fps
             initial
             tmToPic   -- print
             (const id)  -- input

@@ -10,7 +10,7 @@ q0 :: State
 q0 = State False "0"
 
 palette :: [RGB]
-palette = dracula
+palette = rgb
 
 rotToColors :: [Rotation] -> [RGB]
 rotToColors r = take (length r) palette

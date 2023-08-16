@@ -1,17 +1,26 @@
-module Img.Palette(dracula, dict, mono) where
+module Img.Palette(dracula, dict, mono, rgb) where
 
 import Img.Color
 
 type Palette = [RGB]
 
+rgb :: Palette 
+rgb = map from255 [
+    (0,0,0),
+    (255,190,11),
+    (251,86,7),
+    (255,0,110),
+    (131,56,236)
+    ]
+
 dracula :: Palette
 dracula = map from255 [
     (40, 42, 54),
-    (68, 71, 90),
+    (255, 184, 108),
     (248, 248, 242),
+    (68, 71, 90),
     (139, 233, 253),
     (80, 250, 123),
-    (255, 184, 108),
     (255, 121, 198),
     (189, 147, 249),
     (255, 85, 85),
