@@ -17,3 +17,11 @@
 
 #### RLR:
 ![alt text](images/RLR.svg)
+
+## TODO:
+
+- [x] Máquina 2d
+- [ ] Encontrar paleta melhor
+- [ ] Desempenho (Data.MVector)
+- [ ] Geração direto para PNG
+- [ ] Máquina nd (?)
