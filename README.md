@@ -3,14 +3,17 @@
 
 ## Langton's Ants:
 
+#### LRRL:
+![alt text](LRRL.png)
+
 #### RRLLLRLLLRRR:
-![alt text](RRLLLRLLLRRR.svg)
+![alt text](images/RRLLLRLLLRRR.svg)
 
 #### LRRRRRLLR:
-![alt text](LRRRRRLLR.svg)
+![alt text](images/LRRRRRLLR.svg)
 
 #### LLRR:
-![alt text](LLRR.svg)
+![alt text](images/LLRR.svg)
 
 #### RLR:
-![alt text](RLR.svg)
+![alt text](images/RLR.svg)
