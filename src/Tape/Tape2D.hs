@@ -42,7 +42,7 @@ getContent (Tape2D _ _ m) = map content (content mat)
     where mat = adjustMat m
 
 beginTape2 :: a -> Tape2D a
-beginTape2 b = Tape2D (0,0) U (mkInfMat b)
+beginTape2 b = Tape2D (0,0) L (mkInfMat b)
 
 beginTapeFromMat2 :: [[a]] -> a -> Tape2D a
 beginTapeFromMat2 l b = Tape2D (0,0) U (mkInfMatFromMat l b)

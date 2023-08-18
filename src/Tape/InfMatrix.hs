@@ -12,15 +12,14 @@ adjustMat :: InfMatrix a -> InfMatrix a
 adjustMat m = m { positive = map adjustRow (positive m),
                   negative = map adjustRow (negative m) }
     where 
-        smallestIdx = minimum $ map smallestIndex (content m)
-        largestIdx = maximum $ map largestIndex (content m)
+        smallestIdx = minimum $ map minIndex (content m)
+        largestIdx = maximum $ map maxIndex (content m)
 
         adjustRow :: InfList a -> InfList a
         adjustRow row = mkInfListFromList
-                        (replicate (smallestIndex row - smallestIdx) (base row)
+                        (replicate (minIndex row - smallestIdx) (base row)
                          ++ content row ++
-                         replicate (largestIdx - largestIndex row) (base row)) (base row)
-
+                         replicate (largestIdx - maxIndex row) (base row)) (base row)
 
 mkInfMat :: a -> InfMatrix a
 mkInfMat a = mkInfList (mkInfList a)

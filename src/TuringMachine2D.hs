@@ -7,16 +7,14 @@ data TuringMachine2D a = TM2 {
         tape :: Tape2D a,
         transitionTable :: TransitionTable a Rotation,
         currentState :: State,
-        halt :: Bool,
-        count :: Int
+        halt :: Bool
     }
 
 beginTuring2 :: Tape2D a -> TransitionTable a Rotation -> State -> TuringMachine2D a
-beginTuring2 tape transTable state = TM2 tape transTable state False 0
+beginTuring2 tape transTable state = TM2 tape transTable state False
 
 instance (Show a) => Show (TuringMachine2D a) where
-    show tm@(TM2 _ _ st h c) =    showTapeState tm
-                               ++ "\nSteps: " ++ show c
+    show tm@(TM2 _ _ st h) =    showTapeState tm
                                ++ "\nAccepted: " ++ show (h && isAccept st)
 
 showTapeState :: (Show a) => TuringMachine2D a -> String
@@ -24,14 +22,13 @@ showTapeState tm = show (tape tm) ++ " " ++ show (currentState tm)
 
 tmPerformAction :: TuringMachine2D a -> Action a Rotation -> TuringMachine2D a
 tmPerformAction tm Fail = tm { halt = True }
-tmPerformAction tm@(TM2 t _ _ _ c) (Action nxt wChar dir)
+tmPerformAction tm@(TM2 t _ _ _) (Action nxt wChar dir)
                     = tm {
                         tape = tapeRotate2 (tapeWrite2 t wChar) dir,
-                        currentState = nxt,
-                        count = c + 1}
+                        currentState = nxt}
 
 tmStep :: (Eq a) => TuringMachine2D a -> [TuringMachine2D a]
-tmStep tm@(TM2 _ _ _ True _) = pure tm
+tmStep tm@(TM2 _ _ _ True) = pure tm
 tmStep tm = map (tmPerformAction tm) actions
     where actions = nextAction (tapeRead2 (tape tm)) (currentState tm) (transitionTable tm)
 
@@ -60,11 +57,11 @@ tmControlledRun2' n tms
       successful = filter (isAccept . currentState) hadStopped
 
 tmRun2 :: (Eq a, Show a) => TuringMachine2D a -> Maybe (TuringMachine2D a)
-tmRun2 tm@(TM2 _ _ _ True _) = Just tm
+tmRun2 tm@(TM2 _ _ _ True) = Just tm
 tmRun2 tm = result
     where result = tmRun2' [tm]
 
 tmControlledRun2 :: (Eq a, Show a) => Int -> TuringMachine2D a -> Maybe (TuringMachine2D a)
-tmControlledRun2 _ tm@(TM2 _ _ _ True _) = Just tm 
+tmControlledRun2 _ tm@(TM2 _ _ _ True) = Just tm 
 tmControlledRun2 n tm = result
     where result = tmControlledRun2' n [tm]
