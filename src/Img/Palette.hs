@@ -1,4 +1,4 @@
-module Img.Palette(dracula, dict, mono) where
+module Img.Palette(dracula, dict, mono, Palette) where
 
 import Img.Color
 

@@ -1,3 +1,4 @@
+{-# OPTIONS_GHC -Wno-partial-fields #-}
 module State.State(State(..), Action(..), Transition, TransitionTable, mkTr, getTransition, nextAction) where
 
 data State = State {
@@ -31,7 +32,7 @@ instance Show State where
     show a = name a ++ (if isAccept a then " (accept)" else "")
 
 mkTr :: State -> State -> a -> b -> a -> Transition a b
-mkTr fromState toState readChar dirToMove writeChar = Transition fromState readChar (Action toState writeChar dirToMove)
+mkTr fromState toState readChar dir writeChar = Transition fromState readChar (Action toState writeChar dir)
 
 getTransition :: (Eq a) => a -> State -> TransitionTable a b -> [Transition a b]
 getTransition readChar currentState transTable = [ tr | tr <- transTable, from tr == currentState, tread tr == readChar]

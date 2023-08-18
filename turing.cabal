@@ -39,7 +39,6 @@ library
       Tape.InfMatrix
       Tape.Tape
       Tape.Tape2D
-      Tm.Tm
       TuringMachine
       TuringMachine2D
   other-modules:

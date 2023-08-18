@@ -11,7 +11,7 @@ data TuringMachine a = TM {
     }
 
 beginTuring :: Tape a -> TransitionTable a Direction -> State -> TuringMachine a
-beginTuring tape transTable state = TM tape transTable state False 0
+beginTuring tp transTable state = TM tp transTable state False 0
 
 instance (Show a) => Show (TuringMachine a) where
     show (TM _ _ st h c) = "\nSteps: " ++ show c

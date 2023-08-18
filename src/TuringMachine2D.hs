@@ -11,7 +11,7 @@ data TuringMachine2D a = TM2 {
     }
 
 beginTuring2 :: Tape2D a -> TransitionTable a Rotation -> State -> TuringMachine2D a
-beginTuring2 tape transTable state = TM2 tape transTable state False
+beginTuring2 tp transTable state = TM2 tp transTable state False
 
 instance (Show a) => Show (TuringMachine2D a) where
     show tm@(TM2 _ _ st h) =    showTapeState tm
@@ -22,9 +22,9 @@ showTapeState tm = show (tape tm) ++ " " ++ show (currentState tm)
 
 tmPerformAction :: TuringMachine2D a -> Action a Rotation -> TuringMachine2D a
 tmPerformAction tm Fail = tm { halt = True }
-tmPerformAction tm@(TM2 t _ _ _) (Action nxt wChar dir)
+tmPerformAction tm@(TM2 t _ _ _) (Action nxt wChar dr)
                     = tm {
-                        tape = tapeRotate2 (tapeWrite2 t wChar) dir,
+                        tape = tapeRotate2 (tapeWrite2 t wChar) dr,
                         currentState = nxt}
 
 tmStep :: (Eq a) => TuringMachine2D a -> [TuringMachine2D a]

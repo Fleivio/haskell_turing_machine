@@ -16,9 +16,9 @@ rotToColors r = take (length r) datas
 stringToRotation :: String -> [Rotation]
 stringToRotation [] = []
 stringToRotation (x:xs) =
-                if not (null xs) && head xs `elem` ['1'..'9'] then Numb (dir x) ((read [head xs]) :: Int) : stringToRotation (tail xs)
-                else dir x : stringToRotation xs
-        where dir c
+                if not (null xs) && head xs `elem` ['1'..'9'] then Numb (direct x) ((read [head xs]) :: Int) : stringToRotation (tail xs)
+                else direct x : stringToRotation xs
+        where direct c
                 | c == 'L' || c == 'l' = RLeft
                 | c == 'R' || c == 'r' = RRight
                 | c == 'N' || c == 'n' = RNot

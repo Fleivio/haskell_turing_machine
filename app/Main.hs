@@ -4,9 +4,9 @@ import TuringMachine2D
 import Prefabs.LRAnt
 import Tape.Tape2D
 import Img.Ppm
-import Img.Color
 import Img.Palette
 
+palette :: Palette
 palette = dracula
 
 writeTmFile :: String -> IO()
