@@ -3,7 +3,7 @@ module Screen.Graphic(runTmGloss) where
 import Tm.TuringMachine2D
 import qualified Img.Color as Cl
 import Img.Palette
-import Tape.Tape2D
+import Tm.Tape.Tape2D
 import Screen.Display
 
 import qualified Data.ByteString as BS

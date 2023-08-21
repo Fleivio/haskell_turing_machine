@@ -1,6 +1,6 @@
-module Prefabs.BB5(tBB5) where
-import Tape.Tape
-import State.State
+module Tm.Prefabs.BB5(tBB5) where
+import Tm.Tape.Tape
+import Tm.State.State
 import Tm.TuringMachine
 
 tp1 :: Tape Int

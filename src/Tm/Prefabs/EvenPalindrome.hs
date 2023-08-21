@@ -1,6 +1,6 @@
-module Prefabs.EvenPalindrome(tEvenPalindrome) where
-import Tape.Tape
-import State.State
+module Tm.Prefabs.EvenPalindrome(tEvenPalindrome) where
+import Tm.Tape.Tape
+import Tm.State.State
 import Tm.TuringMachine
 
 tp1 :: Tape Char

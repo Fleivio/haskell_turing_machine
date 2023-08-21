@@ -1,5 +1,5 @@
 {-# OPTIONS_GHC -Wno-partial-fields #-}
-module State.State(State(..), Action(..), Transition, TransitionTable, mkTr, getTransition, nextAction) where
+module Tm.State.State(State(..), Action(..), Transition, TransitionTable, mkTr, getTransition, nextAction) where
 
 data State = State {
                 isAccept :: Bool,

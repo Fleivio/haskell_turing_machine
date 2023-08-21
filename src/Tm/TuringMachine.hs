@@ -1,6 +1,6 @@
 module Tm.TuringMachine(TuringMachine(..), tmRun, beginTuring, tmControlledRun) where
-import Tape.Tape
-import State.State
+import Tm.Tape.Tape
+import Tm.State.State
 
 data TuringMachine a = TM {
         tape :: Tape a,

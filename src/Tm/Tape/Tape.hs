@@ -1,6 +1,6 @@
-module Tape.Tape (Direction(..), Tape(..), beginTape, beginTapeFromList, tapeRead, tapeWrite, tapeShift) where
+module Tm.Tape.Tape (Direction(..), Tape(..), beginTape, beginTapeFromList, tapeRead, tapeWrite, tapeShift) where
 
-import Tape.InfList
+import Tm.Tape.InfList
 
 data Direction = R | L deriving (Eq, Show)
 

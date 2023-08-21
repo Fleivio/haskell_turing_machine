@@ -1,4 +1,4 @@
-module Tape.InfList(InfList(..), Index, mkInfList, mkInfListFromList, (<!>), lAcc, lSet, content ) where 
+module Tm.Tape.InfList(InfList(..), Index, mkInfList, mkInfListFromList, (<!>), lAcc, lSet, content ) where 
 
 type Index = Int
 

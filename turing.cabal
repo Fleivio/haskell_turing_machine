@@ -29,19 +29,19 @@ library
       Img.Palette
       Img.Ppm
       Img.Svg
-      Prefabs.BB4
-      Prefabs.BB5
-      Prefabs.EvenPalindrome
-      Prefabs.LangtonAnt
-      Prefabs.LRAnt
       Runner
       Screen.Display
       Screen.Graphic
-      State.State
-      Tape.InfList
-      Tape.InfMatrix
-      Tape.Tape
-      Tape.Tape2D
+      Tm.Prefabs.BB4
+      Tm.Prefabs.BB5
+      Tm.Prefabs.EvenPalindrome
+      Tm.Prefabs.LangtonAnt
+      Tm.Prefabs.LRAnt
+      Tm.State.State
+      Tm.Tape.InfList
+      Tm.Tape.InfMatrix
+      Tm.Tape.Tape
+      Tm.Tape.Tape2D
       Tm.TuringMachine
       Tm.TuringMachine2D
   other-modules:

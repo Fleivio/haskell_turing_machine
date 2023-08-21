@@ -1,6 +1,6 @@
 module Tm.TuringMachine2D(TuringMachine2D(..), tmRun2, tmStep, beginTuring2, tmControlledRun2) where
-import Tape.Tape2D
-import State.State
+import Tm.Tape.Tape2D
+import Tm.State.State
 
 
 data TuringMachine2D a = TM2 {

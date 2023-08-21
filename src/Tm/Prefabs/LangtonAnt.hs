@@ -1,8 +1,8 @@
-module Prefabs.LangtonAnt(tAnt) where
+module Tm.Prefabs.LangtonAnt(tAnt) where
 
 import Tm.TuringMachine2D
-import Tape.Tape2D
-import State.State
+import Tm.Tape.Tape2D
+import Tm.State.State
 
 import Img.Color
 

@@ -1,7 +1,7 @@
 module Main (main) where
 
 import Tm.TuringMachine2D
-import Prefabs.LRAnt
+import Tm.Prefabs.LRAnt
 import Img.Palette
 
 import Runner
@@ -17,9 +17,9 @@ palette = spring
 machine :: TuringMachine2D Int 
 machine = tmStep $ genAnt config
 
-main :: IO () 
-main = do
-    writeTmFile machine palette 90 config
+-- main :: IO () 
+-- main = do
+--     writeTmFile machine palette 90 config
 
--- main :: IO ()
--- main = runGloss machine palette 99999
+main :: IO ()
+main = runGloss machine palette 99999

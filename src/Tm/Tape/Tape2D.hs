@@ -1,6 +1,6 @@
-module Tape.Tape2D(Tape2D(..), Rotation(..), getContent, beginTape2, beginTapeFromMat2, tapeRead2, tapeWrite2, tapeRotate2, beginTapeFromMatAndList2) where
+module Tm.Tape.Tape2D(Tape2D(..), Rotation(..), getContent, beginTape2, beginTapeFromMat2, tapeRead2, tapeWrite2, tapeRotate2, beginTapeFromMatAndList2) where
 
-import Tape.InfMatrix
+import Tm.Tape.InfMatrix
 
 data Direction2D = R| L| U | D deriving (Eq, Show)
 data Rotation = RLeft | RRight | RNot | RBackward 
