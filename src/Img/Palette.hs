@@ -1,4 +1,4 @@
-module Img.Palette(dracula, dict, mono, Palette) where
+module Img.Palette(dracula, dict, spring, mono, Palette) where
 
 import Img.Color
 
@@ -23,7 +23,16 @@ dracula = map from255 [
     (200, 200, 200),
     (250, 250, 250)
     ]
-    
+
+spring :: Palette
+spring = map from255 [
+    (0,0,0),
+    (0, 223, 162),
+    (255,255,255),
+    (255, 30, 96),
+    (246, 250, 112),
+    (0, 121, 255)
+    ]
 
 mono :: Palette
 mono = map from255 [
