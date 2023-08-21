@@ -1,7 +1,7 @@
 module Prefabs.EvenPalindrome(tEvenPalindrome) where
 import Tape.Tape
 import State.State
-import TuringMachine
+import Tm.TuringMachine
 
 tp1 :: Tape Char
 tp1 = beginTapeFromList "baabbaab" 'B'

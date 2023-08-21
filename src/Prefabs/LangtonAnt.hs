@@ -1,6 +1,6 @@
 module Prefabs.LangtonAnt(tAnt) where
 
-import TuringMachine2D
+import Tm.TuringMachine2D
 import Tape.Tape2D
 import State.State
 

@@ -1,7 +1,7 @@
 module Prefabs.BB5(tBB5) where
 import Tape.Tape
 import State.State
-import TuringMachine
+import Tm.TuringMachine
 
 tp1 :: Tape Int
 tp1 = beginTape 0

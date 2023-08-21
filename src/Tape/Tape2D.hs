@@ -11,12 +11,15 @@ rotateDir :: Direction2D -> Rotation -> Direction2D
 rotateDir R RLeft = U
 rotateDir R RRight = D
 rotateDir R RBackward = L
+
 rotateDir L RLeft = D
 rotateDir L RRight = U
 rotateDir L RBackward = R
+
 rotateDir U RLeft = L
 rotateDir U RRight = R
 rotateDir U RBackward = D
+
 rotateDir D RLeft = R
 rotateDir D RRight = L
 rotateDir D RBackward = U

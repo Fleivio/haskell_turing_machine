@@ -1,4 +1,4 @@
-module TuringMachine(TuringMachine(..), tmRun, beginTuring, tmControlledRun) where
+module Tm.TuringMachine(TuringMachine(..), tmRun, beginTuring, tmControlledRun) where
 import Tape.Tape
 import State.State
 
