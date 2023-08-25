@@ -1,6 +1,6 @@
-module Tm.Tape.InfMatrix(Index2D, InfMatrix, InfList(..), mkInfMat, mkInfMatFromMat, adjustMat, content, mkInfMatFromMatAndList, mAcc, mSet, showInfMatrix) where
+module Tm.Tape.Basic.InfMatrix(Index2D, InfMatrix, InfList(..), mkInfMat, mkInfMatFromMat, adjustMat, content, mkInfMatFromMatAndList, mAcc, mSet, showInfMatrix) where
 
-import Tm.Tape.InfList
+import Tm.Tape.Basic.InfList
 
 type Index2D = (Index, Index)
 type InfMatrix a = InfList (InfList a)

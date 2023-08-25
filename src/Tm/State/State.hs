@@ -11,7 +11,7 @@ data Action a b = Action {
                     charToWrite :: a,
                     dirToMove :: b
                 }
-                | Fail
+                | Halt
                 deriving Eq
 
 data Transition a b = Transition {
@@ -39,6 +39,6 @@ getTransition readChar currentState transTable = [ tr | tr <- transTable, from t
 
 nextAction :: (Eq a) => a -> State -> TransitionTable a b -> [Action a b]
 nextAction readChar currentState transTable = case getTransition readChar currentState transTable of
-                                                [] -> [Fail]
+                                                [] -> [Halt]
                                                 x -> map action x
                                             

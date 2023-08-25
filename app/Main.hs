@@ -22,4 +22,4 @@ machine = tmStep $ genAnt config
 --     writeTmFile machine palette 90 config
 
 main :: IO ()
-main = runGloss machine palette 99999
+main = runGloss machine palette 100000

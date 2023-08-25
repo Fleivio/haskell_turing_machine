@@ -38,8 +38,9 @@ library
       Tm.Prefabs.LangtonAnt
       Tm.Prefabs.LRAnt
       Tm.State.State
-      Tm.Tape.InfList
-      Tm.Tape.InfMatrix
+      Tm.Tape.Basic.InfList
+      Tm.Tape.Basic.InfMatrix
+      Tm.Tape.Basic.Rotation
       Tm.Tape.Tape
       Tm.Tape.Tape2D
       Tm.TuringMachine

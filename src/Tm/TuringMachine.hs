@@ -18,7 +18,7 @@ instance (Show a) => Show (TuringMachine a) where
                                ++ "\nAccepted: " ++ show (h && isAccept st)
 
 tmPerformAction :: TuringMachine a -> Action a Direction -> TuringMachine a
-tmPerformAction tm Fail = tm { halt = True }
+tmPerformAction tm Halt = tm { halt = True }
 tmPerformAction tm@(TM t _ _ _ c) (Action nxt wChar dir)
                     = tm {
                         tape = tapeShift (tapeWrite t wChar) dir,

@@ -21,7 +21,7 @@ showTapeState :: (Show a) => TuringMachine2D a -> String
 showTapeState tm = show (tape tm) ++ " " ++ show (currentState tm)
 
 tmPerformAction :: TuringMachine2D a -> Action a Rotation -> TuringMachine2D a
-tmPerformAction tm Fail = tm { halt = True }
+tmPerformAction tm Halt = tm { halt = True }
 tmPerformAction tm@(TM2 t _ _ _) (Action nxt wChar dr)
                     = tm {
                         tape = tapeRotate2 (tapeWrite2 t wChar) dr,
