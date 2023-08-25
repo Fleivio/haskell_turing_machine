@@ -1,6 +1,6 @@
 module Tm.Tape.Basic.Rotation(Rotation(..), Direction2D(..), rotateDir) where
 
-data Direction2D = R| L| U | D deriving (Eq, Show)
+data Direction2D = R| L | U | D deriving (Eq, Show)
 
 data Rotation = RLeft | RRight | RNot | RBackward 
                 | Numb Rotation Int deriving (Eq, Show)

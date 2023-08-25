@@ -1,5 +1,6 @@
 module Tm.TuringMachine2D(TuringMachine2D(..), tmRun2, tmStep, beginTuring2, tmControlledRun2) where
-import Tm.Tape.Tape2D
+import Tm.Tape.ExpTape2
+import Tm.Tape.Basic.Rotation
 import Tm.State.State
 
 

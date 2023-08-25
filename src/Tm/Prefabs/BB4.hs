@@ -1,10 +1,11 @@
 module Tm.Prefabs.BB4(tBB4) where
 import Tm.Tape.Tape
+import Tm.Tape.Basic.Direction
 import Tm.State.State
 import Tm.TuringMachine
 
 tp1 :: Tape Int
-tp1 = beginTape 0
+tp1 = mkTape 0
 
 q0 :: State
 q0 = State False "0"

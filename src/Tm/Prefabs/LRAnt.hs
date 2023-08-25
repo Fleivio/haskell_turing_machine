@@ -1,7 +1,8 @@
 module Tm.Prefabs.LRAnt(genAnt) where
 import Tm.TuringMachine2D 
 import Tm.State.State
-import Tm.Tape.Tape2D
+import Tm.Tape.ExpTape2
+import Tm.Tape.Basic.Rotation
 
 q0 :: State
 q0 = State False "0"
@@ -36,5 +37,5 @@ statesToTransitions i cs (r:rs) = transition : statesToTransitions (i+1) cs rs
 genAnt :: String -> TuringMachine2D Int
 genAnt r = beginTuring2 tp trs q0
         where rot = stringToRotation r
-              tp = beginTape2 (head datas)
+              tp = mkTape2 (head datas)
               trs = statesToTransitions 0 (rotToColors rot) rot

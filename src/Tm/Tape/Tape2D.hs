@@ -1,4 +1,4 @@
-module Tm.Tape.Tape2D(Tape2D(..), Rotation(..), getContent, beginTape2, beginTapeFromMat2, tapeRead2, tapeWrite2, tapeRotate2, beginTapeFromMatAndList2) where
+module Tm.Tape.Tape2D(Tape2D(..), getContent, mkTape2, mkTapeFromMat2, tapeRead2, tapeWrite2, tapeRotate2, mkTapeFromMatAndList2) where
 
 import Tm.Tape.Basic.InfMatrix
 import Tm.Tape.Basic.Rotation
@@ -16,14 +16,14 @@ getContent :: Tape2D a -> [[a]]
 getContent (Tape2D _ _ m) = map content (content adMat)
     where adMat = adjustMat m
 
-beginTape2 :: a -> Tape2D a
-beginTape2 b = Tape2D (0,0) L (mkInfMat b)
+mkTape2 :: a -> Tape2D a
+mkTape2 b = Tape2D (0,0) L (mkInfMat b)
 
-beginTapeFromMat2 :: [[a]] -> a -> Tape2D a
-beginTapeFromMat2 l b = Tape2D (0,0) U (mkInfMatFromMat l b)
+mkTapeFromMat2 :: [[a]] -> a -> Tape2D a
+mkTapeFromMat2 l b = Tape2D (0,0) U (mkInfMatFromMat l b)
 
-beginTapeFromMatAndList2 :: [[a]] -> a -> [a] -> Tape2D a
-beginTapeFromMatAndList2 l b bs= Tape2D (0,0) U (mkInfMatFromMatAndList l b bs)
+mkTapeFromMatAndList2 :: [[a]] -> a -> [a] -> Tape2D a
+mkTapeFromMatAndList2 l b bs= Tape2D (0,0) U (mkInfMatFromMatAndList l b bs)
 
 tapeRead2 :: Tape2D a -> a
 tapeRead2 t = mat t `mAcc` pin t  

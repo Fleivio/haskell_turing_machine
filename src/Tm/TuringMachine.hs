@@ -1,6 +1,7 @@
 module Tm.TuringMachine(TuringMachine(..), tmRun, beginTuring, tmControlledRun) where
 import Tm.Tape.Tape
 import Tm.State.State
+import Tm.Tape.Basic.Direction
 
 data TuringMachine a = TM {
         tape :: Tape a,

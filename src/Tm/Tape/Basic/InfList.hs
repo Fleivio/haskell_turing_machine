@@ -5,7 +5,7 @@ type Index = Int
 data InfList a = InfList {
     negative :: [a],
     positive :: [a],
-    base :: a,
+    base     :: a,
     minIndex :: Index,
     maxIndex :: Index
     } deriving Eq

@@ -2,7 +2,7 @@ module Runner(writeTmFile, runGloss) where
 
 import Screen.Graphic
 import Tm.TuringMachine2D
-import Tm.Tape.Tape2D
+import Tm.Tape.ExpTape2
 import Img.Ppm
 import Img.Palette
 

@@ -1,13 +1,14 @@
 module Tm.Prefabs.LangtonAnt(tAnt) where
 
 import Tm.TuringMachine2D
-import Tm.Tape.Tape2D
+import Tm.Tape.ExpTape2
+import Tm.Tape.Basic.Rotation
 import Tm.State.State
 
 import Img.Color
 
 tp1 :: Tape2D RGB
-tp1 = beginTape2 white
+tp1 = mkTape2 white
 
 q1 :: State
 q1 = State False "up"

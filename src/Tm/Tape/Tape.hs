@@ -1,8 +1,7 @@
-module Tm.Tape.Tape (Direction(..), Tape(..), beginTape, beginTapeFromList, tapeRead, tapeWrite, tapeShift) where
+module Tm.Tape.Tape (Tape(..), mkTape, mkTapeFromList, tapeRead, tapeWrite, tapeShift) where
 
 import Tm.Tape.Basic.InfList
-
-data Direction = R | L deriving (Eq, Show)
+import Tm.Tape.Basic.Direction
 
 data Tape a = Tape {
                     pin :: Index,
@@ -12,11 +11,11 @@ data Tape a = Tape {
 instance Show a => Show (Tape a) where
     show t = show (list t) ++ " " ++ show (pin t)
 
-beginTape :: a -> Tape a
-beginTape b = Tape 0 (mkInfList b)
+mkTape :: a -> Tape a
+mkTape b = Tape 0 (mkInfList b)
 
-beginTapeFromList :: [a] -> a -> Tape a
-beginTapeFromList l b = Tape 0 (mkInfListFromList l b)
+mkTapeFromList :: [a] -> a -> Tape a
+mkTapeFromList l b = Tape 0 (mkInfListFromList l b)
 
 tapeRead :: Tape a -> a
 tapeRead t = list t <!> pin t  

@@ -23,6 +23,7 @@ dependencies:
 - base >= 4.7 && < 5
 - gloss
 - bytestring
+- array
 
 ghc-options:
 - -Wall
